@@ -1,0 +1,869 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PixelPro Studio | Digital Design</title>
+
+<style>
+:root {
+  --bg: #090b18;
+  --panel: #151a30;
+  --purple: #9b7bff;
+  --cyan: #55dfff;
+  --white: #f7f7ff;
+  --muted: #aeb3ca;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: rgba(9,11,24,.96);
+  border-bottom: 1px solid #282d49;
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: var(--purple);
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .25s;
+}
+
+nav a:hover {
+  color: var(--cyan);
+}
+
+.hero {
+  min-height: 570px;
+  padding: 110px 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 80% 30%, #5031a855, transparent 35%),
+    radial-gradient(circle at 20% 80%, #176b9c44, transparent 35%);
+}
+
+.tag {
+  color: var(--cyan);
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  max-width: 850px;
+  line-height: 1.08;
+  margin: 20px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg,var(--purple),var(--cyan));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 550px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 23px;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(90deg,var(--purple),#6a8cff);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 25px;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px #9b7bff44;
+}
+
+section {
+  padding: 85px 8%;
+}
+
+.section-title {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.section-sub {
+  color: var(--muted);
+  margin-bottom: 35px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 22px;
+}
+
+.card {
+  background: var(--panel);
+  padding: 27px;
+  border: 1px solid #292e4b;
+  border-radius: 17px;
+  transition: transform .25s,border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: var(--purple);
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Hide old prices */
+
+.price,
+.card .price,
+#shop .price {
+  display: none !important;
+}
+
+/* PORTFOLIO */
+
+.portfolio-card {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  background: linear-gradient(140deg,#29204d,#172c49);
+}
+
+.portfolio-card:nth-child(2) {
+  background: linear-gradient(140deg,#42301e,#26233e);
+}
+
+.portfolio-card:nth-child(3) {
+  background: linear-gradient(140deg,#153e4c,#33204c);
+}
+
+.portfolio-card:nth-child(4) {
+  background: linear-gradient(140deg,#42204b,#183c49);
+}
+
+.portfolio-card span {
+  color: var(--cyan);
+  font-size: 12px;
+}
+
+/* FAMOUS BRANDS SECTION */
+
+.brands-section {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(circle at 15% 50%, #5031a822, transparent 35%),
+    radial-gradient(circle at 85% 50%, #176b9c22, transparent 35%),
+    #0d1023;
+  border-top: 1px solid #292e4b;
+  border-bottom: 1px solid #292e4b;
+}
+
+.brands-heading {
+  max-width: 750px;
+  margin: 0 auto 45px;
+}
+
+.brands-tag {
+  color: var(--cyan);
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.brands-heading h2 {
+  font-size: clamp(34px,5vw,52px);
+  margin: 15px 0;
+  line-height: 1.2;
+}
+
+.brands-heading h2 span {
+  background: linear-gradient(90deg,var(--purple),var(--cyan));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.brands-heading p {
+  color: var(--muted);
+  max-width: 580px;
+  margin: auto;
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.brand-card {
+  min-height: 160px;
+  padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg,#171d37,#101529);
+  border: 1px solid #303657;
+  border-radius: 18px;
+  transition: .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,#9b7bff12,#55dfff12);
+  opacity: 0;
+  transition: .3s;
+}
+
+.brand-card:hover {
+  transform: translateY(-9px) scale(1.02);
+  border-color: var(--purple);
+  box-shadow: 0 12px 35px #9b7bff20;
+}
+
+.brand-card:hover::before {
+  opacity: 1;
+}
+
+.brand-card h3 {
+  position: relative;
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.brand-card p {
+  position: relative;
+  margin-top: 10px;
+  color: var(--cyan);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.brands-note {
+  color: #858ba7;
+  font-size: 12px;
+  margin-top: 32px;
+}
+
+/* ABOUT */
+
+.about {
+  background: #101329;
+  border-top: 1px solid #292e4b;
+  border-bottom: 1px solid #292e4b;
+}
+
+.about p {
+  max-width: 700px;
+  color: var(--muted);
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* MODALS */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0,0,0,.78);
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #151a30;
+  border: 1px solid #45416b;
+  border-radius: 18px;
+  padding: 28px;
+  position: relative;
+  animation: appear .25s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+/* ORDER FORM */
+
+form {
+  display: grid;
+  gap: 13px;
+  margin-top: 20px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+input,select,textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #363d5d;
+  border-radius: 8px;
+  background: #0d1122;
+  color: white;
+  font: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+form .btn {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.notice {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width:700px) {
+  header {
+    padding: 15px 5%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 13px;
+  }
+
+  .hero {
+    padding: 85px 6%;
+  }
+
+  section {
+    padding: 65px 6%;
+  }
+
+  .brands-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 13px;
+  }
+
+  .brand-card {
+    min-height: 135px;
+    padding: 20px 8px;
+  }
+
+  .brand-card h3 {
+    font-size: 19px;
+  }
+
+  .section-title {
+    font-size: 30px;
+  }
+}
+
+@media(max-width:380px) {
+  nav {
+    gap: 10px;
+  }
+
+  .brands-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="logo">PIXELPRO<span> STUDIO</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#brands">Brands</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="tag">CREATIVE DIGITAL DESIGN STUDIO</div>
+
+  <h1>
+    Design Your <span class="gradient">Vision.</span>
+  </h1>
+
+  <p>
+    Creative designs that help your ideas stand out.
+    From logos to posters, let's make something amazing.
+  </p>
+
+  <a class="btn" href="#shop">Explore Our Services →</a>
+</section>
+
+<!-- SHOP -->
+
+<section id="shop">
+  <h2 class="section-title">Our Services</h2>
+
+  <p class="section-sub">
+    Professional-looking designs made with creativity and passion.
+  </p>
+
+  <div class="grid">
+
+    <article class="card">
+      <h3>🎨 Logo Design</h3>
+      <p>Unique logos to give your brand its identity.</p>
+      <button class="btn" onclick="openOrder('Logo Design')">
+        Order Now
+      </button>
+    </article>
+
+    <article class="card">
+      <h3>🖼️ Poster Design</h3>
+      <p>Eye-catching posters for events and promotions.</p>
+      <button class="btn" onclick="openOrder('Poster Design')">
+        Order Now
+      </button>
+    </article>
+
+    <article class="card">
+      <h3>📱 Social Media Design</h3>
+      <p>Creative posts to make your content stand out.</p>
+      <button class="btn" onclick="openOrder('Social Media Design')">
+        Order Now
+      </button>
+    </article>
+
+    <article class="card">
+      <h3>🍽️ Menu Design</h3>
+      <p>Beautiful menus for restaurants and businesses.</p>
+      <button class="btn" onclick="openOrder('Menu Design')">
+        Order Now
+      </button>
+    </article>
+
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+
+<section id="portfolio">
+  <h2 class="section-title">Our Portfolio</h2>
+
+  <p class="section-sub">
+    A selection of creative projects.
+  </p>
+
+  <div class="grid">
+
+    <article class="card portfolio-card"
+      onclick="showProject('NOVA Logo','A modern, bold brand identity concept.')">
+      <span>BRANDING</span>
+      <h3>NOVA — Brand Identity</h3>
+      <p>Click to explore →</p>
+    </article>
+
+    <article class="card portfolio-card"
+      onclick="showProject('Golden Table','An elegant restaurant menu concept.')">
+      <span>MENU DESIGN</span>
+      <h3>Golden Table Menu</h3>
+      <p>Click to explore →</p>
+    </article>
+
+    <article class="card portfolio-card"
+      onclick="showProject('Summer Festival','A colourful festival poster concept.')">
+      <span>POSTER DESIGN</span>
+      <h3>Summer Festival</h3>
+      <p>Click to explore →</p>
+    </article>
+
+    <article class="card portfolio-card"
+      onclick="showProject('Social Media Post','A promotional social media graphic concept.')">
+      <span>SOCIAL MEDIA</span>
+      <h3>Social Media Post</h3>
+      <p>Click to explore →</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- FAMOUS BRANDS -->
+
+<section class="brands-section" id="brands">
+
+  <div class="brands-heading">
+
+    <div class="brands-tag">
+      BIG BRANDS. BIG IDEAS.
+    </div>
+
+    <h2>
+      Brands We'd Love <span>To Design For.</span>
+    </h2>
+
+    <p>
+      Imagine what we could create for some of the world's
+      most recognised brands. Explore our creative inspiration
+      and brand design concepts.
+    </p>
+
+  </div>
+
+  <div class="brands-grid">
+
+    <div class="brand-card">
+      <h3>NIKE</h3>
+      <p>Concept Design</p>
+    </div>
+
+    <div class="brand-card">
+      <h3>APPLE</h3>
+      <p>Concept Design</p>
+    </div>
+
+    <div class="brand-card">
+      <h3>McDonald's</h3>
+      <p>Concept Design</p>
+    </div>
+
+    <div class="brand-card">
+      <h3>SPOTIFY</h3>
+      <p>Concept Design</p>
+    </div>
+
+    <div class="brand-card">
+      <h3>COCA-COLA</h3>
+      <p>Concept Design</p>
+    </div>
+
+    <div class="brand-card">
+      <h3>ADIDAS</h3>
+      <p>Concept Design</p>
+    </div>
+
+  </div>
+
+  <p class="brands-note">
+    Independent concept designs. PixelPro Studio is not affiliated
+    with or endorsed by the brands shown.
+  </p>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+  <h2 class="section-title">
+    About PixelPro Studio
+  </h2>
+
+  <p>
+    We turn ideas into creative designs. Our goal is to make
+    quality digital design accessible, exciting and affordable.
+    Every project is an opportunity to create something brilliant.
+  </p>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+  © 2026 PixelPro Studio. All rights reserved.
+</footer>
+
+<!-- ORDER MODAL -->
+
+<div class="modal" id="orderModal">
+
+  <div class="modal-content">
+
+    <button class="close" onclick="closeOrder()" aria-label="Close">
+      &times;
+    </button>
+
+    <h2>Place Your Order</h2>
+
+    <p class="notice">
+      Tell us about the design you'd like us to create.
+    </p>
+
+    <form action="https://formspree.io/f/xdeevdze" method="POST">
+
+      <input type="hidden" name="_subject"
+        value="New PixelPro Studio Order">
+
+      <div>
+        <label for="service">Design Service</label>
+
+        <select id="service" name="Design Service" required>
+          <option value="">Choose a service</option>
+          <option>Logo Design</option>
+          <option>Poster Design</option>
+          <option>Social Media Design</option>
+          <option>Menu Design</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="customer">Customer Name</label>
+
+        <input id="customer" name="Customer Name"
+          type="text" maxlength="80" required>
+      </div>
+
+      <div>
+        <label for="email">Email Address</label>
+
+        <input id="email" name="email"
+          type="email" required>
+      </div>
+
+      <div>
+        <label for="style">Preferred Style</label>
+
+        <select id="style" name="Preferred Style" required>
+          <option value="">Choose a style</option>
+          <option>Modern</option>
+          <option>Minimalist</option>
+          <option>Bold and Colourful</option>
+          <option>Luxury</option>
+          <option>Surprise Me</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="description">Describe Your Design</label>
+
+        <textarea id="description"
+          name="Design Description"
+          maxlength="1500"
+          placeholder="Tell us your ideas, colours and any text you want included..."
+          required></textarea>
+      </div>
+
+      <button class="btn" type="submit">
+        Submit Order →
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- PORTFOLIO MODAL -->
+
+<div class="modal" id="projectModal">
+
+  <div class="modal-content">
+
+    <button class="close" onclick="closeProject()" aria-label="Close">
+      &times;
+    </button>
+
+    <h2 id="projectTitle"></h2>
+
+    <p id="projectDescription"
+      style="color:var(--muted);margin-top:12px">
+    </p>
+
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const orderModal = document.getElementById('orderModal');
+const projectModal = document.getElementById('projectModal');
+
+function openOrder(service) {
+
+  document.getElementById('service').value = service;
+
+  orderModal.classList.add('show');
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOrder() {
+
+  orderModal.classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+function showProject(title, description) {
+
+  document.getElementById('projectTitle').textContent = title;
+
+  document.getElementById('projectDescription').textContent = description;
+
+  projectModal.classList.add('show');
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProject() {
+
+  projectModal.classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+/* Close modals by clicking outside */
+
+orderModal.addEventListener('click', function(event) {
+
+  if (event.target === orderModal) {
+    closeOrder();
+  }
+
+});
+
+projectModal.addEventListener('click', function(event) {
+
+  if (event.target === projectModal) {
+    closeProject();
+  }
+
+});
+
+/* Close modals using Escape */
+
+document.addEventListener('keydown', function(event) {
+
+  if (event.key === 'Escape') {
+    closeOrder();
+    closeProject();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
